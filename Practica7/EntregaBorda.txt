@@ -1,0 +1,11 @@
+M = <X,Y,S,dint,dext,lambda,ta>
+X = R (reales)
+Y = {"approached"}
+S = R+0 * R+0 (reales positivos * reales positivos)	/*El tiempo desde el ultimo 0 y el tiempo de permanencia en ese estado*/
+dext(s,e,x) = dext((tt,tp),e,x) | x == 0 = (0,inf)	/*Inicializamos, ya que vino un 0*/
+				| approach(x,tt+e) && x!=0 = (tt+e,0)	/*Si x es aproximado al tiempo que paso desde el ultimo 0 y es distinto de 0, generamos un estado con el tiempo transcurrido desde el ultimo 0 y con un tiempo de permanencia nulo, lo que hara que se puedan ejecutar lambda y dint inmediatamente*/
+				| !approach(x,tt+e) && x!=0 = (tt+e,inf)	/*Si x no es aproximado y es distinto de 0, generamos un estado con el tiempo transcurrido desde el ultimo 0 y con un tiempo de permanencia que nospone el sistema en un estado pasivo*/
+lambda(s) = lambda(tt,tp) = "approached" /*Si llega lamda a ejecutarse, quiere decir que approach dio en dext true y la entrada fue distinta de 0*/
+dint(s) = dint(tt,tp) = (tt,inf) /*Un vez que ya retornamos, hacemos que el sistema pase a un estado pasivo para que no se vuelva ilegitimo*/
+ta(s) = ta (tt,tp) = tp 
+S0 = (0,inf) /*Asumimos que el primer 0 ya entro*/

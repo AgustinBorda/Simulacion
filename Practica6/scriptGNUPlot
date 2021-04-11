@@ -1,0 +1,4 @@
+set terminal qt 0
+plot "archivos_generados/numbers_for_chi_square_test"
+set terminal qt 1
+plot "archivos_generados/generated_numbers_with_selected_seed"
